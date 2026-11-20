@@ -11,12 +11,14 @@ public sealed partial class MainForm
     public const string ConnectionPage = "接続";
 
     private RCheck _chkOscQuery, _chkQueryAutoFetch;
-    private FastLabel _lblQueryVrc, _lblQuerySelf, _lblConnState;
+    private FastLabel _lblQueryVrc, _lblQuerySelf, _lblQueryRecv, _lblConnState;
     private RButton _btnQueryFetch;
     private OscQueryService _oscQuery;
     private System.Threading.Timer _queryFetchTimer;
-    private int _queryVer, _queryShownVer = -1;
+    private int _queryVer;
     private volatile bool _queryFeeding;
+    private readonly System.Windows.Forms.Timer _queryPollTimer = new() { Interval = 1000 };
+    private bool _queryPolling;
 
     private void BuildConnectionPage()
     {
@@ -34,7 +36,7 @@ public sealed partial class MainForm
             grid.Controls.Add(Ui.L(label), 0, y);
             grid.Controls.Add(c, 1, y);
         }
-        _lblConnState = Ui.Info(260, false);
+        _lblConnState = Ui.Info(380, false);
         _btnConnect.MinimumSize = new Size(Ui.W(90), 0);
         AddRow("IP", _txtHost);
         AddRow("送信ポート", _nudSend);
@@ -52,7 +54,8 @@ public sealed partial class MainForm
         _chkOscQuery = Ui.Chk("OSCQuery を使う (VRChat を自動で見つけ、受信ポートを自動で決める)", _s.UseOscQuery);
         _chkQueryAutoFetch = Ui.Chk("接続した時・アバターを変えた時にパラメータを自動で取得", _s.OscQueryAutoFetch);
         _lblQueryVrc = Ui.Info(460, false);
-        _lblQuerySelf = Ui.Info(460);
+        _lblQuerySelf = Ui.Info(520);
+        _lblQueryRecv = Ui.Info(520);
         _btnQueryFetch = Ui.Btn("🔎 パラメータを取得");
         _btnQueryFetch.Click += (_, _) => FetchQueryParams("ボタン");
         _chkOscQuery.CheckedChanged += (_, _) => UpdateConnectionUi();
@@ -67,13 +70,45 @@ public sealed partial class MainForm
             _chkQueryAutoFetch,
             _lblQueryVrc,
             _lblQuerySelf,
+            _lblQueryRecv,
             Ui.Row(_btnQueryFetch),
             Ui.Sub("※ VRChat がこのツールを見つけると、VRChat の画面にツール名の通知が出ます"),
             Ui.Sub("※ Windows 版の VRChat は、同じ PC のアプリにだけパラメータの一覧と値を公開します"),
             Ui.Sub("※ アバターを読み込んでから一度も変わっていない値は 0 / false で返ることがあります (VRChat 側の既知の不具合)。届いた値で上書きされます"),
             Ui.Sub("※ 見つからない時は、Windows のファイアウォールでこのツールを許可するか、OSCQuery を OFF にしてポート指定で接続してください")));
 
+        // VRChat から OSC が届かない時は、OSCQuery で値を定期的に問い合わせて補う
+        _queryPollTimer.Tick += (_, _) => PollQuery();
+        _queryPollTimer.Start();
+        FormClosed += (_, _) => _queryPollTimer.Stop();
+
         UpdateOscQueryUi();
+    }
+
+    private async void PollQuery()
+    {
+        var q = _oscQuery;
+        if (q?.Vrc == null || _queryPolling || !_osc.IsConnected) return;
+        long since = _osc.MsSinceReceive;
+        if (since >= 0 && since < 3000) return; // OSC が届いていれば問い合わせない
+        _queryPolling = true;
+        try
+        {
+            var values = await q.FetchAvatarAsync();
+            await Task.Run(() =>
+            {
+                _queryFeeding = true;
+                try
+                {
+                    foreach (var v in values)
+                        if (v.Address != "/avatar/change") OnOscReceived(new OscMessage(v.Address, v.Value));
+                }
+                finally { _queryFeeding = false; }
+            });
+            Interlocked.Increment(ref _queryVer);
+        }
+        catch { /* 次の回で再試行 */ }
+        finally { _queryPolling = false; }
     }
 
     // =====================================================================
@@ -181,32 +216,39 @@ public sealed partial class MainForm
     private void UpdateOscQueryUi()
     {
         if (_lblQueryVrc == null) return;
-        if (_lblConnState != null)
+        static void Set(FastLabel l, string text)
         {
-            var t = _osc.Target;
-            string st = !_osc.IsConnected || t == null ? "未接続"
-                : $"接続中  送信 {t.Address}:{t.Port}" + (_osc.IsListening ? $" / 受信 {_osc.LocalRecvPort}" : " (送信のみ)");
-            if (_lblConnState.Text != L10n.Auto(st)) _lblConnState.Text = st;
+            if (l != null && l.Text != L10n.Auto(text)) l.Text = text;
         }
-        int ver = Volatile.Read(ref _queryVer);
-        if (ver == _queryShownVer) return;
-        _queryShownVer = ver;
+
+        var t = _osc.Target;
+        Set(_lblConnState, !_osc.IsConnected || t == null ? "未接続"
+            : $"接続中  送信 {t.Address}:{t.Port}" + (_osc.IsListening ? $" / 受信 {_osc.LocalRecvPort}" : " (送信のみ)") +
+              (_osc.ExtraRecvPort > 0 ? $" + {_osc.ExtraRecvPort}" : ""));
 
         var q = _oscQuery;
         if (q == null)
         {
-            _lblQueryVrc.Text = _chkOscQuery.Checked ? "VRChat: 接続すると探します" : "VRChat: (OSCQuery を使っていません)";
-            _lblQuerySelf.Text = "";
+            Set(_lblQueryVrc, _chkOscQuery.Checked ? "VRChat: 接続すると探します" : "VRChat: (OSCQuery を使っていません)");
+            Set(_lblQuerySelf, "");
+            Set(_lblQueryRecv, "");
         }
         else
         {
             var v = q.Vrc;
-            _lblQueryVrc.Text = v == null
+            Set(_lblQueryVrc, v == null
                 ? "VRChat: 探しています…"
-                : $"VRChat: {v.Name}  送信先 {v.Ip}:{v.OscPort} / 問い合わせ {v.QueryPort}";
-            _lblQuerySelf.Text = $"このツール: 受信 {q.OscPort} / 問い合わせ {q.HttpPort}";
+                : $"VRChat: {v.Name}  送信先 {v.Ip}:{v.OscPort} / 問い合わせ {v.QueryPort}");
+            Set(_lblQuerySelf, $"このツール: 受信 {q.OscPort}" + (_osc.ExtraRecvPort > 0 ? $" (予備 {_osc.ExtraRecvPort})" : "") +
+                               $" / 問い合わせ {q.HttpPort}   " + (q.SeenByVrc ? "VRChat 確認済み" : "VRChat からの確認待ち"));
+            long since = _osc.MsSinceReceive;
+            Set(_lblQueryRecv, since < 0 ? "VRChat からの受信: まだありません"
+                : since < 3000 ? (_osc.PrimaryReceiving ? "VRChat からの受信: あり (OSCQuery のポート)" : $"VRChat からの受信: あり (予備のポート {_osc.ExtraRecvPort})")
+                : "VRChat からの受信: 止まっています (OSCQuery で値を問い合わせて補っています)");
         }
-        _lblQueryVrc.ForeColor = q?.Vrc != null ? Theme.Ok : Theme.Fore;
-        _btnQueryFetch.Enabled = q?.Vrc != null;
+        var c = q?.Vrc != null ? Theme.Ok : Theme.Fore;
+        if (_lblQueryVrc.ForeColor != c) _lblQueryVrc.ForeColor = c;
+        bool en = q?.Vrc != null;
+        if (_btnQueryFetch.Enabled != en) _btnQueryFetch.Enabled = en;
     }
 }

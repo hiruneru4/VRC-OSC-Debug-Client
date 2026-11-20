@@ -9,6 +9,21 @@ public sealed class OscClient : IDisposable
     private readonly object _lock = new();
     private UdpClient _sender;
     private UdpClient _receiver;
+    private UdpClient _extra;          // OSCQuery 時の予備の受信 (通常の受信ポート 9001 など)
+    private long _primaryTick;         // メインの受信ポートに最後に届いた時刻
+    private long _lastRecvTick;
+
+    /// <summary>予備の受信ポート (0 = 使っていない)</summary>
+    public int ExtraRecvPort { get; private set; }
+
+    /// <summary>最後に何か受信してからの時間 (ms)。まだ無ければ -1</summary>
+    public long MsSinceReceive
+    {
+        get { long t = Interlocked.Read(ref _lastRecvTick); return t == 0 ? -1 : Environment.TickCount64 - t; }
+    }
+
+    /// <summary>メインの受信ポート (OSCQuery で知らせたポート) に届いているか</summary>
+    public bool PrimaryReceiving => Environment.TickCount64 - Interlocked.Read(ref _primaryTick) < 3000;
     private IPEndPoint _target;
     private CancellationTokenSource _cts;
     private long _sent, _recv;
@@ -56,9 +71,11 @@ public sealed class OscClient : IDisposable
     public event Action<OscMessage> MessageSent;
     public event Action<string> Error;
 
-    public void Connect(string host, int sendPort, int recvPort, bool listen)
+    public void Connect(string host, int sendPort, int recvPort, bool listen, int extraRecvPort = 0)
     {
         Disconnect();
+        Interlocked.Exchange(ref _lastRecvTick, 0);
+        Interlocked.Exchange(ref _primaryTick, 0);
 
         IPAddress ip;
         if (!IPAddress.TryParse(host, out ip))
@@ -81,11 +98,24 @@ public sealed class OscClient : IDisposable
                 // recvPort = 0 なら空いているポート (OSCQuery で VRChat に知らせる)
                 var rc = new UdpClient(new IPEndPoint(recvPort == 0 ? IPAddress.Loopback : IPAddress.Any, recvPort));
                 lock (_lock) _receiver = rc;
-                _ = Task.Run(() => ReceiveLoop(rc, cts.Token));
+                _ = Task.Run(() => ReceiveLoop(rc, true, cts.Token));
             }
             catch (SocketException ex)
             {
                 Error?.Invoke($"受信ポート {recvPort} を開けません (他アプリ使用中?): {ex.Message}");
+            }
+
+            // 予備: VRChat が通常の受信ポートへ送っている分も受け取る (使えなければ黙って諦める)
+            if (extraRecvPort > 0)
+            {
+                try
+                {
+                    var ex2 = new UdpClient(new IPEndPoint(IPAddress.Any, extraRecvPort));
+                    lock (_lock) _extra = ex2;
+                    ExtraRecvPort = extraRecvPort;
+                    _ = Task.Run(() => ReceiveLoop(ex2, false, cts.Token));
+                }
+                catch (SocketException) { ExtraRecvPort = 0; }
             }
         }
 
@@ -99,6 +129,9 @@ public sealed class OscClient : IDisposable
         {
             try { _cts?.Cancel(); } catch { }
             try { _receiver?.Dispose(); } catch { }
+            try { _extra?.Dispose(); } catch { }
+            _extra = null;
+            ExtraRecvPort = 0;
             try { _sender?.Dispose(); } catch { }
             _receiver = null;
             _sender = null;
@@ -106,13 +139,18 @@ public sealed class OscClient : IDisposable
         }
     }
 
-    private async Task ReceiveLoop(UdpClient rc, CancellationToken ct)
+    private async Task ReceiveLoop(UdpClient rc, bool primary, CancellationToken ct)
     {
         while (!ct.IsCancellationRequested)
         {
             try
             {
                 var r = await rc.ReceiveAsync(ct).ConfigureAwait(false);
+                long now = Environment.TickCount64;
+                if (primary) Interlocked.Exchange(ref _primaryTick, now);
+                // メインのポートに届いている間は、予備のポートの分は重複になるので捨てる
+                else if (now - Interlocked.Read(ref _primaryTick) < 3000) continue;
+                Interlocked.Exchange(ref _lastRecvTick, now);
                 Interlocked.Increment(ref _recv);
                 var handler = MessageReceived;
                 if (handler == null) continue;

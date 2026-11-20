@@ -591,6 +591,9 @@ public sealed partial class MainForm
             return;
         }
         _osc.Send(EyeHeight, meters);
+        // VRChat から返事が来る前に続けて押しても (×2 → ×2 など) 正しく計算できるよう、送った値を今の値にしておく
+        _eyeHeight = meters;
+        Interlocked.Increment(ref _scaleVer);
         if (by != null) OpLog.Write($"📏 大きさ: 目の高さ {meters:0.###} m ({by})");
     }
 

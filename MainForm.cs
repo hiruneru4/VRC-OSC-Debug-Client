@@ -1630,9 +1630,11 @@ public sealed partial class MainForm : Form
                 _lastError = "";
                 bool query = _chkOscQuery.Checked;
                 // OSCQuery: 受信ポートは空いているものを自動で使い、VRChat に知らせる
-                _osc.Connect(_txtHost.Text.Trim(), (int)_nudSend.Value, query ? 0 : (int)_nudRecv.Value, query || _chkListen.Checked);
+                // OSCQuery の時も、VRChat が通常の受信ポートへ送る分を予備として受け取る (空いていれば)
+                _osc.Connect(_txtHost.Text.Trim(), (int)_nudSend.Value, query ? 0 : (int)_nudRecv.Value, query || _chkListen.Checked,
+                    query ? (int)_nudRecv.Value : 0);
                 OpLog.Write($"🔌 接続: {_txtHost.Text.Trim()}:{_nudSend.Value}" + (_osc.IsListening ? $"  受信:{_osc.LocalRecvPort}" : "") +
-                            (query ? "  (OSCQuery)" : ""));
+                            (_osc.ExtraRecvPort > 0 ? $" + {_osc.ExtraRecvPort}" : "") + (query ? "  (OSCQuery)" : ""));
                 if (query) StartOscQuery();
             }
             catch (Exception ex)
@@ -1652,7 +1654,7 @@ public sealed partial class MainForm : Form
         _tip.SetToolTip(_lamp, !c ? "未接続" : _osc.IsListening ? "接続中 (送信+受信)" : "接続中 (送信のみ)");
         bool q = _chkOscQuery.Checked;
         _txtHost.Enabled = _nudSend.Enabled = _chkListen.Enabled = _chkOscQuery.Enabled = !c;
-        _nudRecv.Enabled = !c && !q;
+        _nudRecv.Enabled = !c;
         _chkListen.Enabled = !c && !q;
         UpdateOscQueryUi();
     }

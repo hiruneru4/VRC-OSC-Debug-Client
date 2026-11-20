@@ -38,6 +38,9 @@ public sealed class OscQueryService : IDisposable
     private readonly Dictionary<string, int> _vrcOscPorts = new(StringComparer.OrdinalIgnoreCase);
 
     public int HttpPort { get; private set; }
+    private volatile bool _seenByVrc;
+    /// <summary>このツールの情報を誰か (VRChat) が問い合わせてきた</summary>
+    public bool SeenByVrc => _seenByVrc;
     public int OscPort => _oscPort;
     public bool Running => _cts != null;
 
@@ -239,6 +242,11 @@ public sealed class OscQueryService : IDisposable
 
                 string body;
                 int status = 200;
+                if (!_seenByVrc && (path is "/" or "" || query.Contains("HOST_INFO", StringComparison.OrdinalIgnoreCase)))
+                {
+                    _seenByVrc = true;
+                    Log?.Invoke("VRChat 等がこのツールの OSCQuery 情報を確認しました");
+                }
                 if (query.Contains("HOST_INFO", StringComparison.OrdinalIgnoreCase)) body = HostInfoJson();
                 else if (path is "/" or "") body = RootJson();
                 else if (path.TrimEnd('/') == "/avatar") body = AvatarNode;
@@ -562,7 +570,7 @@ public sealed class OscQueryService : IDisposable
                 Rec(name, TXT, true, ttl, d);
             }
 
-            public void A(string name, IPAddress ip, uint ttl) => Rec(name, A, true, ttl, ip.GetAddressBytes());
+            public void A(string name, IPAddress ip, uint ttl) => Rec(name, Dns.A, true, ttl, ip.GetAddressBytes()); // A は同名のメソッドと区別するため Dns.A
 
             private static byte[] Name(string name)
             {

@@ -858,3 +858,11 @@ mDNS を開始できません:	Cannot start mDNS:
 OSCQuery 開始: 受信	OSCQuery started: receive
 VRChat が見つかっていません	VRChat has not been found
 受信ポート	Receive port
+VRChat 等がこのツールの OSCQuery 情報を確認しました	VRChat (or another app) checked this tool's OSCQuery info
+VRChat 確認済み	checked by VRChat
+VRChat からの確認待ち	waiting for VRChat to check
+VRChat からの受信: まだありません	Received from VRChat: nothing yet
+VRChat からの受信: あり (OSCQuery のポート)	Received from VRChat: yes (OSCQuery port)
+VRChat からの受信: あり (予備のポート	Received from VRChat: yes (backup port
+VRChat からの受信: 止まっています (OSCQuery で値を問い合わせて補っています)	Received from VRChat: stopped (filling in by querying values via OSCQuery)
+(予備	(backup
