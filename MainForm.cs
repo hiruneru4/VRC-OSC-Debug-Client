@@ -29,12 +29,12 @@ public sealed partial class MainForm : Form
 
     // ---------------- 上部 ----------------
     private TextBox _txtHost;
-    private NumericUpDown _nudSend, _nudRecv;
+    private RNumber _nudSend, _nudRecv;
     private RCheck _chkListen, _chkTop, _chkAutoConnect;
     private RToggle _chkOutput, _chkSide;
     private RButton _btnConnect, _btnStop, _btnTheme;
     private Label _lamp, _lblOpacity;
-    private TrackBar _trkOpacity;
+    private RSlider _trkOpacity;
 
     // ---------------- 全停止 / ホットキー ----------------
     private Hotkey _stopKey, _outputKey;
@@ -47,7 +47,7 @@ public sealed partial class MainForm : Form
     private RCheck _chkStopDisables, _chkPollStop, _chkLogAuto;
     private Label _lblHotkeyStatus;
     private ComboBox _cmbFont;
-    private NumericUpDown _nudFontSize;
+    private RNumber _nudFontSize;
     private ComboBox _cmbZoom, _cmbLang;
 
     // ---------------- 受信 ----------------
@@ -79,7 +79,7 @@ public sealed partial class MainForm : Form
     private Label _lblChatCount;
     private RCheck _chkChatImmediate, _chkChatSound, _chkChatTyping;
     private ComboBox _cmbChatMode;
-    private NumericUpDown _nudChatInterval, _nudChatCount;
+    private RNumber _nudChatInterval, _nudChatCount;
     private RButton _btnChatSend;
     private ListBox _lstChatHistory;
     private string _chatText = "";
@@ -88,7 +88,7 @@ public sealed partial class MainForm : Form
     private readonly ActionRunner _customRunner = new("custom");
     private TextBox _txtCustAddr, _txtCustVal, _txtCustReset, _txtCustName;
     private ComboBox _cmbCustType, _cmbCustMode;
-    private NumericUpDown _nudCustTime, _nudCustCount;
+    private RNumber _nudCustTime, _nudCustCount;
     private RButton _btnCustRun, _btnCustLock;
     private ListBox _lstCustPresets;
     private volatile CustomPreset[] _customSnapshot = Array.Empty<CustomPreset>(); // マクロ (別スレッド) 用
@@ -96,7 +96,7 @@ public sealed partial class MainForm : Form
 
     // ---------------- コンボ ----------------
     private CheckedListBox _clbCombo;
-    private NumericUpDown _nudComboDelay;
+    private RNumber _nudComboDelay;
     private RCheck _chkComboLoop;
     private ComboBox _cmbComboPreset;
     private CancellationTokenSource _comboCts;
@@ -172,6 +172,7 @@ public sealed partial class MainForm : Form
         PerformLayout();
 
         _osc.MessageReceived += OnOscReceived;
+        FormClosed += (_, _) => StopOscQuery();
         _osc.MessageSent += OnOscSent;
         _osc.Error += msg => { _lastError = msg; OpLog.Write("⚠ " + msg); };
 
@@ -222,8 +223,7 @@ public sealed partial class MainForm : Form
         _tabs = new TabStrip { Dock = DockStyle.Top, AutoSize = true, Margin = new Padding(0) };
         _tabs.SelectedChanged += i => ShowPage(_tabs.Items[i]);
 
-        // ---- 1行目: 接続 ----
-        var row1 = HeaderRow();
+        // ---- 接続 (部品は「接続」タブに置く) ----
         _txtHost = Ui.Txt(_s.Host, 100);
         _nudSend = Ui.Nud(1, 65535, _s.SendPort, 66);
         _nudRecv = Ui.Nud(1, 65535, _s.RecvPort, 66);
@@ -231,7 +231,6 @@ public sealed partial class MainForm : Form
         _btnConnect = Ui.Btn("接続", 56);
         _lamp = new LLabel { Text = "●", AutoSize = true, Anchor = AnchorStyles.Left, Margin = new Padding(2, 3, 0, 3), Tag = "keep" };
         _chkAutoConnect = Ui.Chk("自動接続", _s.AutoConnect);
-        row1.Controls.AddRange(new Control[] { Ui.L("IP"), _txtHost, Ui.L("送信"), _nudSend, Ui.L("受信"), _nudRecv, _chkListen, _btnConnect, _lamp, _chkAutoConnect });
         _tip.SetToolTip(_txtHost, "VRChat を動かしている PC の IP (同じPCなら 127.0.0.1)");
         _tip.SetToolTip(_nudSend, "送信ポート (VRChat の受信ポート / 既定 9000)");
         _tip.SetToolTip(_nudRecv, "受信ポート (VRChat の送信先ポート / 既定 9001)");
@@ -239,17 +238,16 @@ public sealed partial class MainForm : Form
         _tip.SetToolTip(_chkAutoConnect, "起動時に自動接続");
         _btnConnect.Click += (_, _) => ToggleConnect();
 
-        // ---- 2行目: 全体操作 ----
-        var row2 = HeaderRow();
+        // ---- 左上: 全体操作 (大きめのボタン) ----
         _btnStop = Ui.Btn("■ 全停止", 70);
         _btnStop.Tag = "keep";
-        _btnStop.Font = new Font(Font, FontStyle.Bold);
+        _btnStop.Font = new Font(Font.FontFamily, Font.Size * 1.15f, FontStyle.Bold);
         _chkOutput = Ui.Toggle("出力 ON", 70);
         _chkOutput.Checked = true;
         _chkSide = Ui.Toggle("動作パネル");
         _chkSide.Checked = _s.ShowSidePanel;
         _chkTop = Ui.Chk("最前面", _s.TopMost);
-        _trkOpacity = new TrackBar
+        _trkOpacity = new RSlider
         {
             Minimum = 20, Maximum = 100, Value = Math.Clamp(_s.Opacity, 20, 100), TickStyle = TickStyle.None,
             AutoSize = false, Width = Ui.W(80), Height = 26, Anchor = AnchorStyles.Left, Margin = new Padding(0, 2, 0, 0),
@@ -257,7 +255,6 @@ public sealed partial class MainForm : Form
         };
         _lblOpacity = Ui.Sub("100%");
         _btnTheme = Ui.Btn("", 64);
-        row2.Controls.AddRange(new Control[] { _btnStop, _chkOutput, _chkSide });
         // 最前面・透過・ライト/ダークは「設定」タブへ移動
         _tip.SetToolTip(_chkOutput, "OFF: 全停止したうえで、以降の送信をすべて遮断");
         _tip.SetToolTip(_chkSide, "右側の動作パネル (動作中の操作・操作ログ) の表示切替");
@@ -298,13 +295,26 @@ public sealed partial class MainForm : Form
         // ---- 右上: 現在の状態 ----
         _stateBoard = new StateBoard { Dock = DockStyle.Fill };
         _tip.SetToolTip(_stateBoard, "VRChat から受信した現在の状態\n移動 (向き・速さ) / 状態 (VR・デスクトップ) / マイク / 身長 (目の高さ) / ジェスチャー (右・左) / AFK");
-        var leftStack = new FlowLayoutPanel
+        // 左: 1 段目に全停止 (横いっぱい)、2 段目に出力・動作パネル。高さは右の状態表示に合わせて広がる
+        var leftStack = new TableLayoutPanel
         {
-            FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoSize = true,
-            AutoSizeMode = AutoSizeMode.GrowAndShrink, Margin = new Padding(0), Padding = new Padding(0)
+            Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 2, Margin = new Padding(0, 0, 4, 0), Padding = new Padding(0),
+            AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink
         };
-        leftStack.Controls.Add(row1);
-        leftStack.Controls.Add(row2);
+        leftStack.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, Ui.W(118)));
+        leftStack.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, Ui.W(118)));
+        leftStack.RowStyles.Add(new RowStyle(SizeType.Percent, 55));
+        leftStack.RowStyles.Add(new RowStyle(SizeType.Percent, 45));
+        foreach (Control b in new Control[] { _btnStop, _chkOutput, _chkSide })
+        {
+            b.Dock = DockStyle.Fill;
+            b.AutoSize = false;
+            b.Margin = new Padding(2);
+        }
+        leftStack.Controls.Add(_btnStop, 0, 0);
+        leftStack.SetColumnSpan(_btnStop, 2);
+        leftStack.Controls.Add(_chkOutput, 0, 1);
+        leftStack.Controls.Add(_chkSide, 1, 1);
         var header = new TableLayoutPanel
         {
             Dock = DockStyle.Top, AutoSize = true, AutoSizeMode = AutoSizeMode.GrowAndShrink,
@@ -316,7 +326,8 @@ public sealed partial class MainForm : Form
         header.Controls.Add(leftStack, 0, 0);
         header.Controls.Add(_stateBoard, 1, 0);
 
-        // ---- ページ (並び: 操作 → カメラ → システム・パラメータ → 自動化 → 確認・設定) ----
+        // ---- ページ (並び: 接続 → 操作 → カメラ → システム・パラメータ → 自動化 → 確認・設定) ----
+        BuildConnectionPage();
         BuildActionPage(ActionCatalog.CatMove);
         BuildActionPage(ActionCatalog.CatLook);
         BuildActionPage(ActionCatalog.CatHand);
@@ -340,8 +351,8 @@ public sealed partial class MainForm : Form
         Controls.Add(header);
         UpdateSideVisible();
 
-        var start = _pages.ContainsKey(_s.LastPage) ? _s.LastPage : ActionCatalog.CatMove;
-        _tabs.Select(start);
+        // 起動時は必ず「接続」タブを開く
+        _tabs.Select(ConnectionPage);
     }
 
     /// <summary>上部の 1 行 (左側に並べる)</summary>
@@ -1336,6 +1347,7 @@ public sealed partial class MainForm : Form
             case "/avatar/parameters/MuteSelf": Volatile.Write(ref _muteSelf, ArgState(m)); break;
         }
         if (m.Address.StartsWith("/avatar/", StringComparison.Ordinal)) OnScaleReceived(m);
+        if (m.Address == "/avatar/change" && !_queryFeeding) OnQueryAvatarChanged();
     }
 
     private void OnOscSent(OscMessage m)
@@ -1545,7 +1557,6 @@ public sealed partial class MainForm : Form
         _cmbZoom.SelectedIndex = Math.Max(0, Array.IndexOf(zooms, Math.Clamp((int)Math.Round(_s.UiZoom / 10.0) * 10, 70, 130)));
         _cmbLang = Ui.Combo(100, false, "日本語", "English");
         _cmbLang.SelectedIndex = L10n.En ? 1 : 0;
-        var restart2 = Ui.Btn("適用して再起動");
         void Restart()
         {
             _s.FontName = (string)_cmbFont.SelectedItem;
@@ -1556,12 +1567,11 @@ public sealed partial class MainForm : Form
             Application.Restart(); // 終了処理で設定は保存される
         }
         restart.Click += (_, _) => Restart();
-        restart2.Click += (_, _) => Restart();
         _tip.SetToolTip(_cmbZoom, "画面全体の大きさ (文字・ボタン・余白)。小さくすると画面を広く使えます");
         _tip.SetToolTip(_cmbLang, "表示する言語 (Language)");
         _chkLogAuto = Ui.Chk("起動時にログ監視を開始", _s.LogAutoStart);
-        for (int r = 0; r < 7; r++) grid2.RowStyles.Add(new RowStyle(SizeType.AutoSize));
-        grid2.RowCount = 7;
+        for (int r = 0; r < 8; r++) grid2.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        grid2.RowCount = 8;
         grid2.Controls.Add(Ui.L("テーマ"), 0, 0);
         grid2.Controls.Add(_btnTheme, 1, 0);
         grid2.Controls.Add(Ui.L("ウィンドウ"), 0, 1);
@@ -1569,13 +1579,16 @@ public sealed partial class MainForm : Form
         grid2.Controls.Add(Ui.L("透過"), 0, 2);
         grid2.Controls.Add(Ui.Row(_trkOpacity, _lblOpacity), 1, 2);
         grid2.Controls.Add(Ui.L("文字"), 0, 3);
-        grid2.Controls.Add(Ui.Row(_cmbFont, _nudFontSize, Ui.L("pt"), restart), 1, 3);
+        grid2.Controls.Add(Ui.Row(_cmbFont, _nudFontSize, Ui.L("pt")), 1, 3);
         grid2.Controls.Add(Ui.L("UI の大きさ"), 0, 4);
-        grid2.Controls.Add(Ui.Row(_cmbZoom, restart2), 1, 4);
+        grid2.Controls.Add(_cmbZoom, 1, 4);
         grid2.Controls.Add(Ui.L("言語 (Language)"), 0, 5);
         grid2.Controls.Add(_cmbLang, 1, 5);
         grid2.Controls.Add(Ui.L("ログ"), 0, 6);
         grid2.Controls.Add(_chkLogAuto, 1, 6);
+        grid2.Controls.Add(Ui.L("反映"), 0, 7);
+        grid2.Controls.Add(restart, 1, 7);
+        _tip.SetToolTip(restart, "文字・UI の大きさ・言語の変更を反映するため、ツールを再起動します");
         _trkOpacity.Width = Ui.W(200);
 
         list.Controls.Add(Ui.WideCard(
@@ -1606,6 +1619,7 @@ public sealed partial class MainForm : Form
         if (_osc.IsConnected)
         {
             StopAll("切断");
+            StopOscQuery();
             _osc.Disconnect();
             OpLog.Write("🔌 切断");
         }
@@ -1614,8 +1628,12 @@ public sealed partial class MainForm : Form
             try
             {
                 _lastError = "";
-                _osc.Connect(_txtHost.Text.Trim(), (int)_nudSend.Value, (int)_nudRecv.Value, _chkListen.Checked);
-                OpLog.Write($"🔌 接続: {_txtHost.Text.Trim()}:{_nudSend.Value}" + (_osc.IsListening ? $"  受信:{_nudRecv.Value}" : ""));
+                bool query = _chkOscQuery.Checked;
+                // OSCQuery: 受信ポートは空いているものを自動で使い、VRChat に知らせる
+                _osc.Connect(_txtHost.Text.Trim(), (int)_nudSend.Value, query ? 0 : (int)_nudRecv.Value, query || _chkListen.Checked);
+                OpLog.Write($"🔌 接続: {_txtHost.Text.Trim()}:{_nudSend.Value}" + (_osc.IsListening ? $"  受信:{_osc.LocalRecvPort}" : "") +
+                            (query ? "  (OSCQuery)" : ""));
+                if (query) StartOscQuery();
             }
             catch (Exception ex)
             {
@@ -1632,7 +1650,11 @@ public sealed partial class MainForm : Form
         _lamp.ForeColor = !c ? Theme.Off : (_chkListen.Checked && !_osc.IsListening ? Theme.Warn : Theme.Ok);
         _lamp.BackColor = Theme.Back;
         _tip.SetToolTip(_lamp, !c ? "未接続" : _osc.IsListening ? "接続中 (送信+受信)" : "接続中 (送信のみ)");
-        _txtHost.Enabled = _nudSend.Enabled = _nudRecv.Enabled = _chkListen.Enabled = !c;
+        bool q = _chkOscQuery.Checked;
+        _txtHost.Enabled = _nudSend.Enabled = _chkListen.Enabled = _chkOscQuery.Enabled = !c;
+        _nudRecv.Enabled = !c && !q;
+        _chkListen.Enabled = !c && !q;
+        UpdateOscQueryUi();
     }
 
     private void UpdateOutputUi()
@@ -1825,6 +1847,7 @@ public sealed partial class MainForm : Form
         int mute = Volatile.Read(ref _muteSelf);
         if (_lblMicSys != null) SetState(_lblMicSys, "現在", mute, "ミュート", "ON", false);
         UpdateScaleUi();
+        UpdateOscQueryUi();
 
         int running = UpdateActivity();
 
@@ -1837,7 +1860,9 @@ public sealed partial class MainForm : Form
         }
         else
         {
-            string conn = !_osc.IsConnected ? "未接続" : $"{_txtHost.Text}:{_nudSend.Value}" + (_osc.IsListening ? $" / 受信:{_nudRecv.Value}" : "");
+            var target = _osc.Target;
+            string conn = !_osc.IsConnected || target == null ? "未接続"
+                : $"{target.Address}:{target.Port}" + (_osc.IsListening ? $" / 受信:{_osc.LocalRecvPort}" : "") + (_oscQuery != null ? " (OSCQuery)" : "");
             string err = _lastError;
             var last = _lastSentMsg;
             text = $"{conn} | 送信 {_osc.SentCount} 受信 {_osc.RecvCount} | 実行中 {running} | " +
@@ -2055,6 +2080,8 @@ public sealed partial class MainForm : Form
         _s.SendPort = (int)_nudSend.Value;
         _s.RecvPort = (int)_nudRecv.Value;
         _s.Listen = _chkListen.Checked;
+        _s.UseOscQuery = _chkOscQuery.Checked;
+        _s.OscQueryAutoFetch = _chkQueryAutoFetch.Checked;
         _s.AutoConnect = _chkAutoConnect.Checked;
         _s.Dark = Theme.Dark;
         _s.TopMost = _chkTop.Checked;

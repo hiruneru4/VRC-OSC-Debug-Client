@@ -15,7 +15,7 @@ public sealed class ActionRow
     private readonly ToolTip _tip;
     private readonly Label _name;
     private readonly ComboBox _mode;
-    private readonly NumericUpDown _value, _time, _count;
+    private readonly RNumber _value, _time, _count;
     private readonly RButton _run;
     private readonly RCheck _mark;
     private bool _loading;

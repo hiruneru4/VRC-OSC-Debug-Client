@@ -818,3 +818,43 @@ AFK 中	AFK
 ON: 	ON: 
 OFF: 	OFF: 
 AFKしていない	Not AFK
+送信ポート	Send port
+接続先	Connection
+※ 同じ PC の VRChat なら IP 127.0.0.1 / 送信 9000 / 受信 9001 のままで接続できます	※ For VRChat on the same PC, connect with IP 127.0.0.1 / send 9000 / receive 9001
+※ VRChat のアクションメニュー → Options → OSC → Enabled を ON にしてください	※ Turn ON Action Menu → Options → OSC → Enabled in VRChat
+OSCQuery を使う (VRChat を自動で見つけ、受信ポートを自動で決める)	Use OSCQuery (find VRChat automatically and choose the receive port automatically)
+接続した時・アバターを変えた時にパラメータを自動で取得	Fetch parameters automatically on connect and avatar change
+🔎 パラメータを取得	🔎 Fetch Parameters
+ON: 受信ポートを空いているものから自動で選び、OSCQuery (mDNS) で VRChat に知らせます。\n	ON: picks a free receive port automatically and tells VRChat via OSCQuery (mDNS).\n
+受信ポート 9001 を他の OSC アプリと取り合わずに同時に使えます。切り替えは切断中のみ	Works alongside other OSC apps without fighting over port 9001. Can be changed only while disconnected
+VRChat に今のアバターのパラメータ一覧と値を問い合わせ、パラメータタブ・受信タブに反映	Ask VRChat for the current avatar's parameters and values, and show them in the Parameters and Receive tabs
+OSCQuery (VRChat 公式対応の自動接続)	OSCQuery (automatic connection officially supported by VRChat)
+※ VRChat がこのツールを見つけると、VRChat の画面にツール名の通知が出ます	※ When VRChat finds this tool, VRChat shows a notification with the tool name
+※ Windows 版の VRChat は、同じ PC のアプリにだけパラメータの一覧と値を公開します	※ VRChat for Windows shares the parameter list and values only with apps on the same PC
+※ アバターを読み込んでから一度も変わっていない値は 0 / false で返ることがあります (VRChat 側の既知の不具合)。届いた値で上書きされます	※ Values that have not changed since the avatar loaded may come back as 0 / false (a known VRChat issue). They are overwritten when real values arrive
+※ 見つからない時は、Windows のファイアウォールでこのツールを許可するか、OSCQuery を OFF にしてポート指定で接続してください	※ If VRChat is not found, allow this tool in the Windows firewall, or turn OSCQuery OFF and connect with ports
+OSCQuery: 受信ポートを開けませんでした	OSCQuery: could not open a receive port
+OSCQuery を開始できません:	Cannot start OSCQuery:
+🔎 VRChat を検出:	🔎 VRChat found:
+(送信先	(send to
+/ 問い合わせ	/ query
+自動	auto
+OSCQuery が動いていません。\n「OSCQuery を使う」を ON にして接続してください。	OSCQuery is not running.\nTurn ON "Use OSCQuery" and connect.
+VRChat がまだ見つかっていません。\nVRChat を起動して OSC を有効にしてください。	VRChat has not been found yet.\nStart VRChat and enable OSC.
+🔎 OSCQuery: パラメータ	🔎 OSCQuery: fetched
+件を取得 (	parameters (
+OSCQuery の問い合わせに失敗:	OSCQuery query failed:
+接続中  送信	Connected  send
+/ 受信	/ receive
+(送信のみ)	(send only)
+VRChat: 接続すると探します	VRChat: searched for after connecting
+VRChat: (OSCQuery を使っていません)	VRChat: (OSCQuery not in use)
+VRChat: 探しています…	VRChat: searching…
+送信先	send to
+このツール: 受信	This tool: receive
+反映	Apply
+文字・UI の大きさ・言語の変更を反映するため、ツールを再起動します	Restart the tool to apply font, UI size and language changes
+mDNS を開始できません:	Cannot start mDNS:
+OSCQuery 開始: 受信	OSCQuery started: receive
+VRChat が見つかっていません	VRChat has not been found
+受信ポート	Receive port

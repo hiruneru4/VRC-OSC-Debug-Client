@@ -37,14 +37,14 @@ public sealed class MacroPage : UserControl, IThemeAware, IMacroHost
 
     private readonly ComboBox _cmbMacro;
     private readonly TextBox _txtName;
-    private readonly NumericUpDown _nudRepeat;
+    private readonly RNumber _nudRepeat;
     private readonly HotkeyBox _hk;
     private readonly RButton _btnRun, _btnPause;
     private readonly FastLabel _lblState;
     private readonly ListBox _lstSteps;
     private readonly ComboBox _cmbKind, _cmbTarget, _cmbType;
     private readonly TextBox _txtValue;
-    private readonly NumericUpDown _nudMs, _nudCount;
+    private readonly RNumber _nudMs, _nudCount;
     private readonly Label _lblValue, _lblTarget;
     private readonly RCheck _chkParallel;
     private readonly Label _titleLabel, _helpTitleLabel;

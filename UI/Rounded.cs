@@ -342,51 +342,44 @@ public class RCheck : CheckBox
         Cursor = Cursors.Hand;
     }
 
-    private int BoxSize => (int)Math.Round(15 * Rounded.Dpi(this));
+    // スイッチ (パラメータタブと同じ見た目: ON = 緑、つまみが右へ)
+    private float D => Rounded.Dpi(this);
+    private int SwW => (int)Math.Round(34 * D);
+    private int SwH => (int)Math.Round(18 * D);
 
     public override Size GetPreferredSize(Size proposedSize)
     {
         var t = TextRenderer.MeasureText(string.IsNullOrEmpty(Text) ? " " : Text, Font);
-        int textW = string.IsNullOrEmpty(Text) ? 0 : t.Width + (int)(6 * Rounded.Dpi(this));
-        return new Size(BoxSize + 3 + textW, Math.Max(BoxSize, t.Height) + 4);
+        int textW = string.IsNullOrEmpty(Text) ? 0 : t.Width + (int)(6 * D);
+        return new Size(SwW + 3 + textW, Math.Max(SwH, t.Height) + 4);
     }
 
     protected override void OnCheckedChanged(EventArgs e) { Invalidate(); base.OnCheckedChanged(e); }
+    protected override void OnEnabledChanged(EventArgs e) { Invalidate(); base.OnEnabledChanged(e); }
 
     protected override void OnPaint(PaintEventArgs e)
     {
         var g = e.Graphics;
-        g.Clear(Rounded.ParentBack(this));
+        var back = Rounded.ParentBack(this);
+        g.Clear(back);
         g.SmoothingMode = SmoothingMode.AntiAlias;
 
-        int box = BoxSize;
-        var r = new RectangleF(1.5f, (Height - box) / 2f, box - 1f, box - 1f);
-        Color fill = Checked ? Theme.Accent : Theme.InputBack;
-        Color border = Checked ? Theme.Accent : Theme.Border;
-        if (!Enabled) { fill = Rounded.Blend(fill, Rounded.ParentBack(this), 0.5f); border = Rounded.Blend(border, Rounded.ParentBack(this), 0.5f); }
-
-        using (var path = Rounded.Path(r, box / 3.5f))
-        {
-            using (var b = new SolidBrush(fill)) g.FillPath(b, path);
-            using (var p = new Pen(border)) g.DrawPath(p, path);
-        }
-        if (Checked)
-        {
-            using var pen = new Pen(Color.White, Math.Max(1.6f, 2f * Rounded.Dpi(this)))
-            {
-                StartCap = LineCap.Round, EndCap = LineCap.Round, LineJoin = LineJoin.Round
-            };
-            g.DrawLines(pen, new[]
-            {
-                new PointF(r.X + r.Width * 0.24f, r.Y + r.Height * 0.52f),
-                new PointF(r.X + r.Width * 0.43f, r.Y + r.Height * 0.71f),
-                new PointF(r.X + r.Width * 0.77f, r.Y + r.Height * 0.31f)
-            });
-        }
+        var r = new RectangleF(1.5f, (Height - SwH) / 2f, SwW - 2f, SwH);
+        Color fill = Checked ? Theme.Active : Theme.ButtonBack;
+        Color knob = Checked ? Color.White : Theme.SubFore;
+        if (!Enabled) { fill = Rounded.Blend(fill, back, 0.5f); knob = Rounded.Blend(knob, back, 0.5f); }
+        using (var path = Rounded.Path(r, r.Height / 2f))
+        using (var b = new SolidBrush(fill))
+            g.FillPath(b, path);
+        float k = r.Height - 5 * D;
+        float kx = Checked ? r.Right - k - 2.5f * D : r.X + 2.5f * D;
+        using (var kb = new SolidBrush(knob)) g.FillEllipse(kb, kx, r.Y + 2.5f * D, k, k);
+        if (Focused && ShowFocusCues)
+            using (var p = new Pen(Theme.Accent)) g.DrawPath(p, Rounded.Path(RectangleF.Inflate(r, 1, 1), r.Height / 2f + 1));
 
         if (!string.IsNullOrEmpty(Text))
         {
-            int x = box + (int)(6 * Rounded.Dpi(this));
+            int x = SwW + (int)(6 * D);
             var tr = new Rectangle(x, 0, Width - x, Height);
             TextRenderer.DrawText(g, Text, Font, tr, Enabled ? ForeColor : Theme.SubFore,
                 TextFormatFlags.Left | TextFormatFlags.VerticalCenter | TextFormatFlags.SingleLine | TextFormatFlags.NoPrefix);

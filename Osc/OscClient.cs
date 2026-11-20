@@ -1,4 +1,4 @@
-using System.Net;
+﻿using System.Net;
 using System.Net.Sockets;
 
 namespace VRCOscDebugClient.Osc;
@@ -15,6 +15,28 @@ public sealed class OscClient : IDisposable
 
     public bool IsConnected { get; private set; }
     public bool IsListening => _receiver != null;
+
+    /// <summary>実際に受信しているポート (受信ポート 0 = 空いているポートを自動で使う時の確認用)</summary>
+    public int LocalRecvPort
+    {
+        get
+        {
+            lock (_lock)
+            {
+                try { return (_receiver?.Client.LocalEndPoint as IPEndPoint)?.Port ?? 0; }
+                catch { return 0; }
+            }
+        }
+    }
+
+    /// <summary>今の送信先</summary>
+    public IPEndPoint Target { get { lock (_lock) return _target; } }
+
+    /// <summary>送信先だけを変える (OSCQuery で VRChat の受信ポートが分かった時)</summary>
+    public void SetTarget(IPAddress ip, int port)
+    {
+        lock (_lock) _target = new IPEndPoint(ip, port);
+    }
 
     /// <summary>false の間は通常送信をすべて破棄する (オフ機能)</summary>
     public volatile bool OutputEnabled = true;
@@ -56,7 +78,8 @@ public sealed class OscClient : IDisposable
         {
             try
             {
-                var rc = new UdpClient(new IPEndPoint(IPAddress.Any, recvPort));
+                // recvPort = 0 なら空いているポート (OSCQuery で VRChat に知らせる)
+                var rc = new UdpClient(new IPEndPoint(recvPort == 0 ? IPAddress.Loopback : IPAddress.Any, recvPort));
                 lock (_lock) _receiver = rc;
                 _ = Task.Run(() => ReceiveLoop(rc, cts.Token));
             }

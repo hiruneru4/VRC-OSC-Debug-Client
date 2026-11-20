@@ -466,8 +466,8 @@ public sealed partial class MainForm
     private volatile bool _scaleAwaitOriginal = true;
     private int _scaleVer, _scaleShownVer = -1;
     private FastLabel _lblScaleNow, _lblScaleWarn;
-    private NumericUpDown _nudScale, _nudScaleStep;
-    private TrackBar _trkScale;
+    private RNumber _nudScale, _nudScaleStep;
+    private RSlider _trkScale;
     private bool _scaleSuppress;
     private long _scaleLastSend;
 
@@ -491,7 +491,7 @@ public sealed partial class MainForm
         var half = Ui.Btn("×0.5");
         var dbl = Ui.Btn("×2");
         var orig = Ui.Btn("元に戻す");
-        _trkScale = new TrackBar
+        _trkScale = new RSlider
         {
             Minimum = 0, Maximum = 1000, TickStyle = TickStyle.None, AutoSize = false,
             Width = Ui.W(260), Height = 26, Anchor = AnchorStyles.Left | AnchorStyles.Right, Margin = new Padding(0, 1, 0, 1),
@@ -592,7 +592,6 @@ public sealed partial class MainForm
         }
         _osc.Send(EyeHeight, meters);
         if (by != null) OpLog.Write($"📏 大きさ: 目の高さ {meters:0.###} m ({by})");
-        if (_scaleAllowed == 0 && by != null) _lastError = "このワールドでは大きさの変更が禁止されています";
     }
 
     /// <summary>受信スレッドから呼ばれる</summary>
@@ -651,15 +650,12 @@ public sealed partial class MainForm
         if (ver == _scaleShownVer) return;
         _scaleShownVer = ver;
 
-        float h = _eyeHeight, mn = _eyeMin, mx = _eyeMax, o = _eyeOriginal;
-        int allowed = _scaleAllowed;
+        float h = _eyeHeight, o = _eyeOriginal;
         string F(float v) => float.IsNaN(v) ? "?" : v.ToString("0.00");
-        string allow = allowed < 0 ? "?" : allowed == 1 ? "可" : "禁止 (ワールド)";
-        _lblScaleNow.Text = $"現在: {F(h)} m   元: {F(o)} m   メニューの範囲: {F(mn)}〜{F(mx)} m   変更: {allow}";
+        _lblScaleNow.Text = $"現在: {F(h)} m   元: {F(o)} m";
 
         string warn = "";
-        if (allowed == 0) warn = "⚠ このワールドでは大きさの変更が禁止されています (送信しても無視されます)";
-        else if (!float.IsNaN(h) && (h < 0.1f || h > 100f)) warn = "⚠ 公式サポート範囲 (0.1〜100 m) の外です";
+        if (!float.IsNaN(h) && (h < 0.1f || h > 100f)) warn = "⚠ 公式サポート範囲 (0.1〜100 m) の外です";
         _lblScaleWarn.Text = warn;
         _lblScaleWarn.ForeColor = Theme.Warn;
 

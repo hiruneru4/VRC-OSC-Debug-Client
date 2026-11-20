@@ -60,6 +60,10 @@ public sealed class AppSettings
     public int RecvPort { get; set; } = 9001;
     public bool Listen { get; set; } = true;
     public bool AutoConnect { get; set; } = false;
+    /// <summary>OSCQuery で VRChat を自動で見つける (受信ポートは自動)</summary>
+    public bool UseOscQuery { get; set; } = false;
+    /// <summary>OSCQuery で接続時・アバター変更時にパラメータを自動で取得</summary>
+    public bool OscQueryAutoFetch { get; set; } = true;
 
     public bool Dark { get; set; } = true;
     public bool TopMost { get; set; } = false;

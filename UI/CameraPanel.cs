@@ -15,11 +15,11 @@ public sealed class CameraPanel : UserControl
     private readonly AppSettings _s;
     private readonly ComboBox _cmbMode;
     private readonly Dictionary<string, RToggle> _toggles = new();
-    private readonly Dictionary<string, (CamSlider Def, TrackBar Bar, FastLabel Label)> _sliders = new();
+    private readonly Dictionary<string, (CamSlider Def, RSlider Bar, FastLabel Label)> _sliders = new();
     private readonly FastLabel _lblPose, _lblDolly;
     private readonly ComboBox _cmbSlot;
     private readonly RToggle _chkDollyPlay;
-    private readonly NumericUpDown _nudDelay;
+    private readonly RNumber _nudDelay;
     private readonly ConcurrentDictionary<string, object[]> _incoming = new();
     private float[] _pose;
     private bool _suppress;
@@ -89,7 +89,7 @@ public sealed class CameraPanel : UserControl
         foreach (var sl in CameraCatalog.Sliders)
         {
             var name = Ui.L(sl.Name);
-            var bar = new TrackBar
+            var bar = new RSlider
             {
                 Minimum = 0, Maximum = 1000, TickStyle = TickStyle.None, AutoSize = false,
                 Width = Ui.W(120), Height = 26, Anchor = AnchorStyles.Left | AnchorStyles.Right, Margin = new Padding(0, 1, 0, 1),

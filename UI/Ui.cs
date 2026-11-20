@@ -1,4 +1,4 @@
-using VRCOscDebugClient.Core;
+﻿using VRCOscDebugClient.Core;
 using System.Runtime.CompilerServices;
 
 namespace VRCOscDebugClient.UI;
@@ -64,9 +64,10 @@ public static class Ui
         Anchor = AnchorStyles.Left, Margin = new Padding(3), Padding = new Padding(8, 3, 8, 3)
     };
 
-    public static NumericUpDown Nud(decimal min, decimal max, decimal value, int width, decimal inc = 1, int decimals = 0) => new()
+    public static RNumber Nud(decimal min, decimal max, decimal value, int width, decimal inc = 1, int decimals = 0) => new RNumber
     {
-        Minimum = min, Maximum = max, Value = Math.Clamp(value, min, max), Width = WI(width),
+        // − / + の分だけ幅を足す
+        Minimum = min, Maximum = max, Value = Math.Clamp(value, min, max), Width = WI(width) + W(30),
         Increment = inc, DecimalPlaces = decimals, Anchor = AnchorStyles.Left, Margin = InputMargin,
         TextAlign = HorizontalAlignment.Right
     };
