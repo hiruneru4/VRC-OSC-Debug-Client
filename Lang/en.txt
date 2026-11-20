@@ -1,0 +1,820 @@
+# VRC OSC Debug Client — English translation (Japanese<TAB>English). Edit to change the English UI text.
+移動	Move
+視点	Look
+手・アイテム	Hands & Items
+システム	System
+軸は -1〜1 (前後/左右)。ボタンと同時実行可	Axes are -1 to 1 (fwd/back, left/right). Can run together with buttons
+Comfort はVRのスナップターン	Comfort = VR snap turn
+保持系の軸は物を掴んでいる時に有効	Hold axes work while holding an object
+マイクはVRChat側のトグル/PTT設定に依存	Mic depends on VRChat's toggle/PTT setting
+前進	Forward
+W キー相当	Same as W key
+後退	Backward
+S キー相当	Same as S key
+左移動	Move Left
+A キー相当	Same as A key
+右移動	Move Right
+D キー相当	Same as D key
+ダッシュ	Run
+Shift 相当 (移動と同時に使用)	Same as Shift (use with movement)
+ジャンプ	Jump
+Space 相当	Same as Space
+前後軸	Fwd/Back Axis
+1=前 / -1=後 (速度調整可)	1=forward / -1=back (speed adjustable)
+左右軸	Left/Right Axis
+1=右 / -1=左 (速度調整可)	1=right / -1=left (speed adjustable)
+左を向く	Look Left
+左回転	Turn left
+右を向く	Look Right
+右回転	Turn right
+スナップ左	Snap Left
+VR時のスナップターン左	Snap turn left in VR
+スナップ右	Snap Right
+VR時のスナップターン右	Snap turn right in VR
+視点左右軸	Look Axis
+1=右回転 / -1=左回転	1=turn right / -1=turn left
+右手 使う	Right Use
+Use (トリガー)	Use (trigger)
+右手 掴む	Right Grab
+右手 離す	Right Drop
+左手 使う	Left Use
+左手 掴む	Left Grab
+左手 離す	Left Drop
+右 使う軸	Right Use Axis
+トリガーのアナログ値	Trigger analog value
+右 掴む軸	Right Grab Axis
+グリップのアナログ値	Grip analog value
+保持物 前後	Held Item Fwd/Back
+掴んだ物を前後に移動	Move the held item forward/back
+保持物 回転	Held Item Spin
+時計/反時計回り	Clockwise / counterclockwise
+保持物 上下	Held Item Up/Down
+上下に回転	Rotate up/down
+保持物 左右	Held Item Left/Right
+左右に回転	Rotate left/right
+マイク	Mic
+トグル設定: 0→1でミュート切替 / PTT: 押している間ON	Toggle mode: 0→1 toggles mute / PTT: ON while pressed
+QM開閉 (左)	QM Toggle (L)
+クイックメニュー開閉	Open/close Quick Menu
+QM開閉 (右)	QM Toggle (R)
+セーフモード	Safe Mode
+⚠ 周囲のアバターを全て非表示化 (パニック)	⚠ Hides all nearby avatars (panic)
+1回	Once
+連打	Rapid
+長押し	Hold
+オフ	Off
+写真	Photo
+ストリーム	Stream
+エモート	Emote
+マルチレイヤー	Multilayer
+プリント	Print
+ドローン	Drone
+UI を写す	Show UI
+カメラをロック	Lock Camera
+自分を写す	Capture Self
+他の人を写す	Capture Others
+背景を写す	Capture Environment
+グリーンスクリーン	Green Screen
+スムーズ移動	Smooth Movement
+ルックアットミー	Look-At-Me
+自動水平 (ロール)	Auto Level (Roll)
+自動水平 (ピッチ)	Auto Level (Pitch)
+飛行	Flying
+トリガーで撮影	Trigger Takes Photo
+ドリー経路を表示	Show Dolly Paths
+カメラ位置の音を聞く	Audio From Camera
+フォーカス表示	Show Focus
+Spout 配信	Spout Stream
+飛行中にロール	Roll While Flying
+横向き	Orientation (Landscape)
+ズーム	Zoom
+露出	Exposure
+焦点距離	Focal Distance
+絞り	Aperture
+GS 色相	GS Hue
+GS 彩度	GS Saturation
+GS 明度	GS Lightness
+ルックアットミー 横	Look-At-Me X
+ルックアットミー 縦	Look-At-Me Y
+飛行速度	Fly Speed
+回転速度	Turn Speed
+スムーズの強さ	Smoothing Strength
+ドリー撮影間隔	Dolly Photo Interval
+ドリー時間 (秒)	Dolly Duration (s)
+撮影	Capture
+タイマー撮影	Timed Capture
+カメラを閉じる	Close Camera
+モード (0〜6)	Mode (0-6)
+ドリー 再生/停止	Dolly Play/Stop
+ドリー 遅延再生 (秒)	Dolly Delayed Play (s)
+押す	Press
+離す	Release
+1回押す	Tap
+待機	Wait
+チャット	Chat
+値を送信	Send Value
+全て離す	Release All
+並行待ち	Wait Parallel
+マクロ実行	Run Macro
+マクロ停止	Stop Macro
+マクロ一時停止	Pause Macro
+マクロ再開	Resume Macro
+割込み実行	Interrupt
+カテゴリ操作	Category
+全マクロ (自分以外)	All macros (except self)
+「	"
+」	"
+(並行中のステップの終了を待つ)	(wait for parallel steps to finish)
+(終わるまで待つ)	(wait until done)
+(他を一時停止 → 実行 → 再開)	(pause others → run → resume)
+[並行]	[parallel]
+新しいマクロ	New Macro
+回目  ステップ	run  step
+並行	Parallel
+押下	Pressed
+⚠ マクロ「	⚠ Macro "
+」エラー:	" error:
+フォルダを作れません:	Cannot create folder:
+: 内容がありません	: empty
+無題	Untitled
+🔓 固定解除:	🔓 Unlocked:
+🔓 固定を全て解除 (	🔓 Unlocked all (
+件,	items,
+移動 (歩き・走り・停止)	Movement (walk/run/stop)
+ジャンプ・着地・落下	Jump / land / fall
+ジェスチャー	Gesture
+声 (話し始め・終わり)	Voice (start/stop talking)
+ミュート	Mute
+状態 (座る・ステーション)	State (sit / station)
+VR / デスクトップ・トラッキング	VR / Desktop / tracking
+アバター変更	Avatar change
+アバターの切り替え (表情・衣装など)	Avatar toggles (expressions, outfits, etc.)
+カメラ	Camera
+ワールド移動	World change
+プレイヤーの参加・退出	Player join/leave
+動画プレイヤー	Video player
+エラー	Error
+ニュートラル	Neutral
+グー	Fist
+パー	Open Hand
+指差し	Point
+ピース	Victory
+ロックンロール	Rock'n'Roll
+ハンドガン	Handgun
+サムズアップ	Thumbs Up
+初期化中	Initializing
+汎用	Generic
+手のみ	Hands only
+頭と手 (3点)	Head & hands (3-point)
+頭・手・腰 (4点)	Head, hands & hip (4-point)
+フルトラ	Full body
+フルトラ (多点)	Full body (more points)
+種類	Kind
+💤 AFK になった	💤 Went AFK
+👀 AFK から戻った (	👀 Back from AFK (
+分	min
+秒)	s)
+🔇 ミュート ON	🔇 Mute ON
+🎙 ミュート OFF (マイク ON)	🎙 Mute OFF (mic ON)
+🪑 座った	🪑 Sat down
+🧍 立ち上がった	🧍 Stood up
+🚗 ステーション (椅子・乗り物) に入った	🚗 Entered a station (seat/vehicle)
+🚪 ステーションから出た	🚪 Left the station
+🦘 ジャンプ	🦘 Jump
+🛬 着地 (滞空	🛬 Landed (airtime
+⬇ 落下中	⬇ Falling
+左手:	Left hand:
+右手:	Right hand:
+🎤 話し始めた	🎤 Started talking
+🥽 VR モード	🥽 VR mode
+🖥 デスクトップ モード	🖥 Desktop mode
+📡 トラッキング:	📡 Tracking:
+📷 カメラを閉じた	📷 Camera closed
+📷 カメラ:	📷 Camera:
+モード	Mode
+🎞 ドリー再生	🎞 Dolly play
+🎞 ドリー停止	🎞 Dolly stop
+📤 ドリー経路を書き出し:	📤 Dolly path exported:
+🤐 話し終えた (	🤐 Stopped talking (
+⬇ 落下	⬇ Fall
+停止	Stopped
+歩き	Walking
+走り	Running
+🚶 歩き始めた (	🚶 Started walking (
+🏃 走り始めた (	🏃 Started running (
+🧍 止まった	🧍 Stopped
+⚠ ほかにエラー	⚠ more errors
+件	items
+前	front
+右前	front-right
+右	right
+右後	back-right
+後	back
+左後	back-left
+左	left
+左前	front-left
+🌍 ワールド移動:	🌍 World change:
+🚪 インスタンスに参加:	🚪 Joined instance:
+さんが参加	joined
+さんが退出	left
+🎬 動画:	🎬 Video:
+⚠ エラー:	⚠ Error:
+カテゴリ停止	Stop Category
+ボタン	Button
+チャットの連打を止め、入力中表示も消す	Stop chat repeat and clear the typing indicator
+ON: 入力欄 (空なら選択中の定型文) を送信・連打開始 / 動作中なら停止	ON: send the input (or the selected saved text if empty) / starts repeat; stops if running
+チャットの ON/OFF キー\nON: 入力欄 (空なら選択中の定型文) を送信 / OFF: 連打を停止	Chat ON/OFF key\nON: send the input (or the selected saved text if empty) / OFF: stop repeat
+キー	Key
+■ カテゴリ停止:	■ Stop category:
+) 定型文:	) saved text:
+: 送信する文字がありません (入力欄か定型文を選んでください)	: nothing to send (type in the input or select a saved text)
+名前 (省略可)	Name (optional)
+入力欄を保存	Save Input
+上書き	Overwrite
+呼び出し	Load
+送信	Send
+削除	Delete
+入力欄の文字を定型文として保存 (名前・キーも一緒に)	Save the input text as a saved text (with name and key)
+選択中の定型文を、入力欄の文字・名前・キーで置き換え	Replace the selected saved text with the input text, name and key
+選択中の定型文を入力欄に呼び出す (ダブルクリックでも可)	Load the selected saved text into the input (double-click also works)
+選択中の定型文をそのまま送信 (モードが「連打」なら連打)	Send the selected saved text as is (repeats if mode is "Rapid")
+この定型文を送信するキー (Back/Delete で解除)	Key that sends this saved text (Back/Delete to clear)
+ダブルクリック: 呼び出し / Enter: 送信 / Delete: 削除	Double-click: load / Enter: send / Delete: delete
+入力欄に文字を入れてから保存してください	Type some text in the input before saving
+＋ 定型文を保存:	＋ Saved text added:
+定型文 (よく使う文字を保存して呼び出し・キーで送信)	Saved texts (save frequently used text, load it or send it with a key)
+名前	Name
+カテゴリ:	Category:
+定型文:	Saved text:
+⌨ 定型文を送信 (キー):	⌨ Sent saved text (key):
+この機能を使用してのトラブル等発生しても自己責任でお願い致します。	Use of this feature is at your own risk. We take no responsibility for any trouble that may occur.
+マクロ	Macro
+コンボ	Combo
+ファイル:	file:
+ファイルの読み書きに失敗 (	file read/write failed (
+件) — 操作ログを確認してください	items) — check the operation log
+💾 マクロ	💾 Macros
+件 / コンボ	items / Combos
+件をファイルに保存	items saved to files
+📂 マクロを再読込:	📂 Macros reloaded:
+件 (	items (
+📂 コンボを再読込:	📂 Combos reloaded:
+マクロの保存先フォルダ	Macro save folder
+コンボの保存先フォルダ	Combo save folder
+新しいフォルダの	Loaded the
+を読み込みました。\n(切り替える前の	from the new folder.\n(The
+は元のフォルダに保存してあります)\n\n	from before the switch were saved in the old folder)\n\n
+の保存先を変更 (今の	save folder changed (copied current
+をコピー):	):
+フォルダを開けません:	Cannot open folder:
+マクロ・コンボ機能の有効化	Enable Macros & Combos
+同意して有効化	Agree and Enable
+キャンセル	Cancel
+✅ マクロ・コンボ機能を有効化 (自己責任に同意)	✅ Macros & combos enabled (agreed to use at own risk)
+⛔ マクロ・コンボ機能を無効化	⛔ Macros & combos disabled
+機能が有効化されていません (「設定」→「マクロ・コンボ」で有効化)	feature is not enabled (enable it in "Settings" → "Macros & Combos")
+機能が OFF です	feature is OFF
+機能 OFF	feature OFF
+機能 ON	feature ON
+機能の ON / OFF (OFF にすると動作中の	feature ON / OFF (turning OFF also stops running
+も停止)	)
+無効: 実行するには「設定」→「マクロ・コンボ」で有効化してください (編集はできます)	Disabled: enable in "Settings" → "Macros & Combos" to run (editing is possible)
+ON/OFF キー:	ON/OFF key:
+を実行できます	can be run
+は実行されません	will not run
+マクロ・コンボ機能を有効化する (自己責任)	Enable macros & combos (at your own risk)
+有効化しないとマクロ・コンボは実行されません (ショートカットキーも登録されません)	Macros & combos will not run unless enabled (their hotkeys are not registered either)
+ON/OFF キー	ON/OFF Key
+変更	Change
+開く	Open
+再読込	Reload
+フォルダのファイルから	Reload
+を読み直します。\n動作中の	from the folder files.\nRunning
+は停止します。	will be stopped.
+保存先フォルダを選ぶ\n空のフォルダ: 今の一覧をコピー / ファイルがあるフォルダ: その内容を読み込む	Choose the save folder\nEmpty folder: copy the current list / Folder with files: load its contents
+フォルダのファイルから一覧を読み直す (ファイルを直接編集した時など)	Reload the list from the folder files (e.g. after editing files directly)
+マクロの保存先	Macro folder
+コンボの保存先	Combo folder
+マクロ・コンボ	Macros & Combos
+※ 有効化しないとマクロ・コンボは実行されません (編集はできます)	※ Macros & combos do not run unless enabled (editing is possible)
+※ 1 件 = 1 ファイル (*.json)。フォルダに置いたファイルは自動で読み込み、編集内容は自動で保存されます	※ 1 item = 1 file (*.json). Files placed in the folder load automatically and edits are saved automatically
+※ アプリ内で削除したマクロ・コンボは、ファイルも削除されます	※ Macros & combos deleted in the app also have their files deleted
+現在: ? (受信を有効にして接続すると表示)	Current: ? (shown when receive is enabled and connected)
+元に戻す	Restore
+プリセット	Presets
+入力	Input
+元の大きさをまだ受信していません	The original size has not been received yet
+スライダー	Slider
+入力した目の高さ (m) を	Send the entered eye height (m) to
+に送信 (Enter でも送信)	(Enter also sends)
+現在の大きさから刻み分だけ小さく	Smaller by the step from the current size
+現在の大きさから刻み分だけ大きく	Larger by the step from the current size
+＋/− で変える量 (m)	Amount changed by ＋/− (m)
+アバターを読み込んだ時の大きさに戻す	Restore the size from when the avatar was loaded
+0.1〜100 m (対数)。動かすとすぐ送信	0.1–100 m (logarithmic). Sends immediately when moved
+目の高さ	Eye height
+刻み	Step
+アバターの大きさ (目の高さ)	Avatar Size (Eye Height)
+※ VRChat の公式サポートは 0.1〜100 m (範囲外は VRChat の画面に警告が出ます)。OSC では 0.01〜10000 m まで指定できます	※ VRChat officially supports 0.1–100 m (outside this range VRChat shows a warning). OSC accepts 0.01–10000 m
+※ ワールドで大きさの変更が禁止されていると無視されます。ワールドに制限がある場合はその範囲に戻されます	※ Ignored if the world disallows scaling. If the world has limits, the size is set back within them
+※ マクロでは「値を送信」で /avatar/eyeheight (Float) を指定すると変更できます	※ In macros, use "Send Value" with /avatar/eyeheight (Float) to change it
+未接続のため大きさを送信できません	Not connected, cannot send size
+📏 大きさ: 目の高さ	📏 Size: eye height
+このワールドでは大きさの変更が禁止されています	Scaling is disallowed in this world
+可	allowed
+禁止 (ワールド)	disallowed (world)
+現在:	Current:
+m   元:	m   Original:
+m   メニューの範囲:	m   Menu range:
+m   変更:	m   Scaling:
+⚠ このワールドでは大きさの変更が禁止されています (送信しても無視されます)	⚠ Scaling is disallowed in this world (sending is ignored)
+⚠ 公式サポート範囲 (0.1〜100 m) の外です	⚠ Outside the officially supported range (0.1–100 m)
+受信	Receive
+接続	Connect
+自動接続	Auto Connect
+VRChat を動かしている PC の IP (同じPCなら 127.0.0.1)	IP of the PC running VRChat (127.0.0.1 if the same PC)
+送信ポート (VRChat の受信ポート / 既定 9000)	Send port (VRChat's receive port / default 9000)
+受信ポート (VRChat の送信先ポート / 既定 9001)	Receive port (VRChat's send port / default 9001)
+VRChat からの OSC (アバターパラメータ等) を受信する	Receive OSC from VRChat (avatar parameters, etc.)
+起動時に自動接続	Connect automatically on startup
+■ 全停止	■ Stop All
+出力 ON	Output ON
+動作パネル	Activity Panel
+最前面	Always on Top
+OFF: 全停止したうえで、以降の送信をすべて遮断	OFF: stop all and block all further sending
+右側の動作パネル (動作中の操作・操作ログ) の表示切替	Show/hide the activity panel on the right (running actions & log)
+ウィンドウの不透明度 (20〜100%)	Window opacity (20–100%)
+出力OFF	Output OFF
+🔈 出力 ON	🔈 Output ON
+🔇 出力 OFF (送信を遮断)	🔇 Output OFF (sending blocked)
+VRChat から受信した現在の状態\n移動 (向き・速さ) / 状態 (VR・デスクトップ) / マイク / 身長 (目の高さ) / ジェスチャー (右・左) / AFK	Current state received from VRChat\nMovement (direction & speed) / State (VR or desktop) / Mic / Height (eye height) / Gesture (right & left) / AFK
+このカテゴリの ON/OFF キー\nON: 「対象」にチェックした操作をまとめて開始 / OFF: このカテゴリを全停止	ON/OFF key for this category\nON: start all actions checked as "Target" / OFF: stop this category
+「対象」にチェックした操作をまとめて開始 (動作中なら全停止)	Start all actions checked as "Target" (stops all if running)
+マイクON	Mic ON
+マイクOFF	Mic OFF
+受信した MuteSelf を見て、ミュート中なら Voice を1回押す (トグル設定時)	Checks the received MuteSelf and presses Voice once if muted (toggle mode)
+受信した MuteSelf を見て、ON なら Voice を1回押す (トグル設定時)	Checks the received MuteSelf and presses Voice once if ON (toggle mode)
+※ マイク状態の取得には「受信」を有効にして接続してください	※ Enable "Receive" and connect to get the mic state
+※ セーフモードは周囲のアバターを全非表示にします	※ Safe mode hides all nearby avatars
+: 「対象」にチェックされた操作がありません	: no actions are checked as "Target"
+マイク状態が不明です。\n「受信」を有効にして接続し、VRChat 側で OSC を有効にしてください。	The mic state is unknown.\nEnable "Receive", connect, and enable OSC in VRChat.
+パラメータ	Parameters
+Enter: 送信 / Shift+Enter: 改行 (最大144文字)	Enter: send / Shift+Enter: new line (max 144 characters)
+即時表示	Immediate
+通知音	Notification Sound
+入力中表示	Typing Indicator
+OFF: VRChat のキーボードに入力されるだけ (送信しない)	OFF: only fills the VRChat keyboard (does not send)
+チャットボックスの通知音を鳴らす	Play the chatbox notification sound
+頭上に入力中インジケーターを表示 (/chatbox/typing)	Show the typing indicator above your head (/chatbox/typing)
+消去	Clear
+間隔ms	Interval ms
+回数	Count
+連打間隔 (VRChat のレート制限対策で最小 1500ms)	Repeat interval (minimum 1500 ms due to VRChat rate limits)
+連打回数 (0 = 停止するまで)	Repeat count (0 = until stopped)
+チャットボックスを空にする	Clear the chatbox
+💬 チャット消去	💬 Chat cleared
+■ チャット連打 終了	■ Chat repeat finished
+ダブルクリック: 再利用 / Ctrl+C: テキストをコピー / 右クリック: コピー・削除 / Delete: 削除	Double-click: reuse / Ctrl+C: copy text / Right-click: copy, delete / Delete: delete
+入力欄に戻す (再利用)	Back to input (reuse)
+テキストをコピー	Copy text
+送信時間付きでコピー	Copy with send time
+履歴を全てコピー (時間付き)	Copy all history (with time)
+履歴を全て消去	Clear all history
+送信履歴を全て消去しますか？	Clear all sent history?
+送信履歴 (右クリックでコピー等)	Sent history (right-click to copy, etc.)
+💬 チャット送信:	💬 Chat sent:
+▶ チャット連打:	▶ Chat repeat:
+カスタム	Custom
+📋 貼り付け	📋 Paste
+アドレス	Address
+クリップボードのパラメータを貼り付け\n	Paste a parameter from the clipboard\n
+対応: パラメータタブ・受信タブの「名前・型・値をコピー」/ 「名前=値」/ アドレスや名前だけ	Supports: "Copy name, type, value" from the Parameters/Receive tabs / "name=value" / address or name only
+型	Type
+値	Value
+戻り値	Reset value
+1回 / 長押し / 連打 の解除時に送る値	Value sent when Once / Hold / Rapid is released
+値のみ送信	Send Value Only
+🔓 固定を解除	🔓 Unlock
+🔒 固定	🔒 Lock
+このアドレスを「値」で固定 (VRChat 側で変わっても戻す) / 固定中なら解除	Lock this address to "Value" (restores it if VRChat changes it) / unlock if locked
+アドレスは / から始めてください	The address must start with /
+値を1回だけ送信 (戻り値は送らない)	Send the value once (the reset value is not sent)
+1回=押下時間 / 長押し=保持時間(0=無限) / 連打=間隔	Once = press time / Hold = hold time (0 = infinite) / Rapid = interval
+📤 カスタム送信:	📤 Custom sent:
+■ カスタム 終了:	■ Custom finished:
+プリセット名	Preset name
+保存	Save
+📋 一括追加	📋 Bulk Add
+クリップボードの複数パラメータ (1行1つ) をまとめてプリセットに追加\nパラメータタブの「全コピー」の内容をそのまま使えます	Add multiple parameters (one per line) from the clipboard as presets\nWorks with "Copy all" from the Parameters tab
+クリック: 読込 / ダブルクリック: 読込して実行	Click: load / Double-click: load and run
+例: /avatar/parameters/パラメータ名  (受信タブの行をダブルクリックで入力)	e.g. /avatar/parameters/ParameterName  (double-click a row in the Receive tab to fill)
+※ アバターのパラメータは「パラメータ」タブの方が簡単に操作できます	※ Avatar parameters are easier to operate in the "Parameters" tab
+＋ カスタムのプリセットに追加:	＋ Added to custom presets:
+クリップボードにパラメータがありません。\nパラメータタブや受信タブで右クリック →「〜をコピー」してから使ってください。	No parameters in the clipboard.\nRight-click in the Parameters or Receive tab → "Copy ..." first.
+クリップボードにパラメータがありません	No parameters in the clipboard
+▶ カスタム:	▶ Custom:
+値 \"	Value \"
+\" を	\" cannot be converted to
+同時実行	Run Together
+順次実行	Run in Order
+ループ	Loop
+全解除	Clear All
+各操作は個別タブで設定したモード/時間/回数で実行されます	Each action runs with the mode/time/count set in its own tab
+チェックした操作をすべて同時に開始	Start all checked actions at the same time
+チェックした操作を上から順に、間隔ms ごとに開始	Start checked actions from top to bottom, every "Interval ms"
+プリセット名を入力してください	Enter a preset name
+■ コンボ 順次実行 終了	■ Combo run in order finished
+■ コンボ停止	■ Combo stopped
+アドレスで絞込	Filter by address
+一時停止	Pause
+固定のみ	Locked Only
+クリア	Clear
+(一覧から選択)	(select from the list)
+入力した値を1回送信	Send the entered value once
+入力した値で固定 (VRChat 側で変わっても戻す) / 固定中なら解除	Lock to the entered value (restores it if VRChat changes it) / unlock if locked
+全ての固定を解除	Unlock all
+Enter: 送信 / Ctrl+Enter: 固定	Enter: send / Ctrl+Enter: lock
+固定	Lock
+時刻	Time
+クリック: 値の変更欄に読込 / 右クリック: 変更・固定・コピー / ダブルクリック: カスタムタブへ	Click: load into the edit field / Right-click: change, lock, copy / Double-click: to Custom tab
+受信タブ	Receive tab
+値を変更して送信…	Change value and send…
+値を変更して固定…	Change value and lock…
+今の値で固定	Lock current value
+アドレスをコピー	Copy address
+値をコピー	Copy value
+アドレス・型・値をコピー	Copy address, type and value
+カスタムタブへ送る	Send to Custom tab
+カスタムのプリセットに追加	Add to custom presets
+🔒 今の値で固定	🔒 Lock current value
+受信一覧からアドレスを選んでください	Select an address from the receive list
+」を	" to
+📤 送信:	📤 Sent:
+(固定中)	(locked)
+値を変更して固定	Change value and lock
+値を変更して送信	Change value and send
+ログ	Log
+↩ メイン画面に戻す	↩ Back to Main Window
+ログは別ウィンドウで表示中です	The log is shown in a separate window
+VRChat ログ	VRChat Log
+ログをメイン画面に戻しました	Log moved back to the main window
+ログを別ウィンドウで表示	Show log in a separate window
+設定	Settings
+既定に戻す	Reset to Default
+OSC 全停止	Stop All OSC
+出力 ON/OFF	Output ON/OFF
+全停止したら出力も OFF にする	Also turn output OFF when stopping all
+全停止キーを常時監視 (他アプリにキーを取られても効く)	Always watch the stop-all key (works even if another app takes the key)
+登録状態	Status
+適用して再起動	Apply and Restart
+日本語	Japanese
+画面全体の大きさ (文字・ボタン・余白)。小さくすると画面を広く使えます	Size of the whole window (text, buttons, spacing). Smaller uses less screen space
+表示する言語 (Language)	Display language
+起動時にログ監視を開始	Start log monitoring on startup
+テーマ	Theme
+ウィンドウ	Window
+透過	Opacity
+文字	Font
+UI の大きさ	UI Size
+言語 (Language)	Language
+ショートカットキー	Shortcut Keys
+※ 欄をクリックしてキーを押すと変更 (Back/Delete で解除)。入力中はホットキーが一時無効	※ Click a field and press a key to change it (Back/Delete to clear). Hotkeys are paused while typing
+※ アプリ内では Shift+Esc でも全停止できます	※ Inside the app, Shift+Esc also stops all
+※ カテゴリの ON/OFF キーは各カテゴリのタブで設定	※ Category ON/OFF keys are set in each category tab
+※ マクロ機能・コンボ機能の ON/OFF キーは下の「マクロ・コンボ」で設定	※ Macro/combo feature ON/OFF keys are set in "Macros & Combos" below
+表示 (テーマ・最前面・透過・文字・大きさ・言語)	Display (theme, always on top, opacity, font, size, language)
+※ 文字・UI の大きさ・言語は「適用して再起動」で反映されます	※ Font, UI size and language take effect with "Apply and Restart"
+未設定	Not set
+実行中の操作・連打・コンボ・マクロ・チャット連打をすべて止め、\n全ボタン=0 / 全軸=0 を強制送信します  [	Stops all running actions, repeats, combos, macros and chat repeats,\nand force-sends all buttons=0 / all axes=0  [
+■ 全停止 (	■ Stop All (
+切断	Disconnect
+🔌 切断	🔌 Disconnected
+🔌 接続:	🔌 Connected:
+受信:	receive:
+接続できません:	Cannot connect:
+未接続	Not connected
+接続中 (送信+受信)	Connected (send + receive)
+接続中 (送信のみ)	Connected (send only)
+出力 OFF	Output OFF
+⛔ 全停止 (	⛔ Stop all (
+全停止	Stop all
+出力切替	Output toggle
+マクロ ON/OFF	Macro ON/OFF
+コンボ ON/OFF	Combo ON/OFF
+マクロ:	Macro:
+✓ 登録OK (	✓ Registered (
+件)	items)
+⚠ 登録できません (他アプリが使用中/重複):	⚠ Cannot register (used by another app / duplicate):
+ホットキー登録失敗:	Hotkey registration failed:
+キー監視	key watch
+ホットキー	hotkey
+現在	Current
+⛔ 全停止しました (全ボタン/軸を 0 にリセット)	⛔ Stopped all (all buttons/axes reset to 0)
+/ 受信:	/ receive:
+| 送信	| sent
+| 実行中	| running
+1 件	1 item
+番目	th
+周回	loop
+☀ ライト	☀ Light
+🌙 ダーク	🌙 Dark
+起動しました	Started
+終了	Exit
+受信ポート	Receive port
+を開けません (他アプリ使用中?):	cannot be opened (in use by another app?):
+受信エラー:	Receive error:
+送信エラー:	Send error:
+このツールはあくまでもVRChatのOSCを利用してのデバッグ等を行なうために作成されました。\n	This tool was created only for debugging and similar purposes using VRChat's OSC.\n
+全て公式のOSCを使用しての機能となっていますので非公式な仕組み等は利用していません。\n	All features use official OSC only; no unofficial mechanisms are used.\n
+何かトラブル等が発生しても自己責任でお願い致します。	Use at your own risk; we take no responsibility for any trouble that may occur.
+はい	Yes
+いいえ	No
+押下中	While Pressed
+軸の値 (-1.0〜1.0)	Axis value (-1.0 to 1.0)
+ボタンは 1/0 固定	Buttons are fixed to 1/0
+連打回数 (0 = 停止するまで無限)	Repeat count (0 = infinite until stopped)
+チェックした操作は、このカテゴリのショートカットキーでまとめて ON/OFF されます	Checked actions are turned ON/OFF together with this category's shortcut key
+押下時間 ms (1回押して離す)	Press time ms (press once and release)
+保持時間 ms (0 = もう一度押すまで保持)	Hold time ms (0 = hold until pressed again)
+連打間隔 ms (押下はその半分)	Repeat interval ms (pressed for half of it)
+押下中: ▶ ボタンを押している間だけ ON	While Pressed: ON only while the ▶ button is held
+押している間だけ ON	ON only while pressed
+実行 / 停止	Run / Stop
+対象	Target
+操作	Action
+時間ms	Time ms
+実行	Run
+動作中	Running
+操作ログ	Operation Log
+VRC 動作履歴	VRC History
+種類 ▼	Kinds ▼
+コピー	Copy
+全て表示	Show All
+操作ログ: このツールが実行した操作・送信した OSC\nVRC 動作履歴: VRChat 側の動き (移動・ジャンプ・ジェスチャー・声・ミュート・AFK・アバター・カメラ・ワールド・プレイヤー等)	Operation Log: actions run and OSC sent by this tool\nVRC History: what happens in VRChat (movement, jumps, gestures, voice, mute, AFK, avatar, camera, world, players, etc.)
+送信した OSC メッセージも記録する	Also log sent OSC messages
+VRChat から受信した OSC も記録する (量が多いので注意)	Also log OSC received from VRChat (can be a lot)
+VRC 動作履歴に出す種類を選ぶ	Choose which kinds appear in the VRC history
+表示を一時停止 (再開すると溜まった分を表示)	Pause display (shows the buffered lines when resumed)
+表示中のログを txt に保存	Save the displayed log to txt
+テキスト (*.txt)|*.txt	Text (*.txt)|*.txt
+保存できませんでした:	Could not save:
+動作中の操作はありません	No running actions
+📷 撮影	📷 Capture
+⏲ タイマー撮影	⏲ Timed Capture
+✖ カメラを閉じる	✖ Close Camera
+モード:	Mode:
+※ VRChat 側でカメラを開いている時だけ操作できます (OSC ではカメラを開けません)	※ Works only while the camera is open in VRChat (OSC cannot open the camera)
+スイッチ (VRChat 側の状態に合わせて表示)	Switches (shown according to VRChat's state)
+全て既定に戻す	Reset All to Default
+既定	Default
+, 既定	, default
+(VRChat からまだ受信していません)	(not received from VRChat yet)
+今のポーズを保存	Save Current Pose
+VRChat から受信した現在のカメラ位置・向きを、選んだ番号に保存	Save the current camera position/rotation received from VRChat to the selected slot
+保存した位置・向きにカメラを移動 (/usercamera/Pose)	Move the camera to the saved position/rotation (/usercamera/Pose)
+カメラのポーズをまだ受信していません。\nVRChat でカメラを開いて少し動かしてください。	The camera pose has not been received yet.\nOpen the camera in VRChat and move it a little.
+📷 ポーズを保存:	📷 Pose saved:
+この番号には保存されていません	Nothing is saved in this slot
+ポーズ呼び出し:	Load pose:
+ポーズ (カメラの位置・向き)	Poses (camera position & rotation)
+番号	Slot
+■ 停止	■ Stop
+▶ 再生	▶ Play
+ドリー再生	Dolly play
+ドリー停止	Dolly stop
+⏲ 遅延再生	⏲ Delayed Play
+ドリー遅延再生	Dolly delayed play
+秒	s
+📤 書き出し	📤 Export
+ドリー経路を書き出し	Export dolly path
+📥 読み込み…	📥 Import…
+書き出し先: ドキュメント\\VRChat\\CameraPaths	Export to: Documents\\VRChat\\CameraPaths
+今のドリー経路を JSON に書き出し (ドキュメント\\VRChat\\CameraPaths)	Export the current dolly path to JSON (Documents\\VRChat\\CameraPaths)
+JSON のドリー経路を読み込み (再生中は無視されます)	Import a dolly path from JSON (ignored while playing)
+カメラドリー (VRC+)	Camera Dolly (VRC+)
+遅延	Delay
+(保存済)	(saved)
+位置	Position
+/  向き	/  Rotation
+⚠ 未接続のため送信できません:	⚠ Not connected, cannot send:
+ドリー経路 (*.json)|*.json|すべて (*.*)|*.*	Dolly path (*.json)|*.json|All (*.*)|*.*
+ドリー経路を読み込み:	Import dolly path:
+読み込めませんでした:	Could not load:
+書き出しました:	Exported:
+(なし)	(none)
+キーを押してください	Press a key
+ログビューアー	Log Viewer
+ログビューアー -	Log Viewer -
+ファイル	File
+監視	Watch
+最新追従	Follow Latest
+絞込	Filter
+スクロール停止	Stop Scrolling
+■ 記録停止	■ Stop Recording
+一致行だけ	Matching Lines Only
+📂 ログビューアー	📂 Log Viewer
+保存先	Save Folder
+📂 ファイルを開く…	📂 Open File…
+● 記録開始	● Start Recording
+⧉ 別ウィンドウ	⧉ Pop Out
+記録開始〜停止の間に流れたログを txt に保存します (保存先: ドキュメント\\VRC OSC Debug Client\\LogRecords)	Saves the log lines between start and stop to txt (folder: Documents\\VRC OSC Debug Client\\LogRecords)
+検索キーワードに一致する行だけを記録	Record only lines that match the search keyword
+保存したログ (txt) を見るビューアーを開く (直前に記録したものを表示)	Open a viewer for saved logs (txt) (shows the last recording)
+ログを別ウィンドウで表示 / メイン画面に戻す	Show the log in a separate window / back to the main window
+記録の保存フォルダを開く	Open the recording save folder
+ログ監視の開始 / 停止	Start / stop log monitoring
+新しい output_log が作られたら自動で切り替え	Switch automatically when a new output_log is created
+VRChat ログフォルダ (既定: %LOCALAPPDATA%Low\\VRChat\\VRChat)	VRChat log folder (default: %LOCALAPPDATA%Low\\VRChat\\VRChat)
+ログファイルを手動で選択 (最新追従はOFFになります)	Choose a log file manually (turns off Follow Latest)
+キーワード (Enter で次を検索)	Keyword (Enter to find next)
+一致行のみ表示	Show matching lines only
+大文字小文字を区別	Match case
+正規表現	Regex
+自動スクロールを停止 (読み込みは継続)	Stop auto-scroll (reading continues)
+Ctrl+C: コピー / ダブルクリック: 行の全文表示	Ctrl+C: copy / Double-click: show the full line
+VRChat ログ (output_log_*.txt)|output_log_*.txt|テキスト (*.txt)|*.txt|すべて (*.*)|*.*	VRChat log (output_log_*.txt)|output_log_*.txt|Text (*.txt)|*.txt|All (*.*)|*.*
+ログ行	Log line
+● 記録中 0 行	● Recording 0 lines
+● ログ記録を開始	● Log recording started
+# VRChat ログ記録	# VRChat log recording
+# 元ファイル:	# Source file:
+# 一致行だけ:	# Matching lines only:
+行	lines
+保存:	Saved:
+行)	lines)
+■ ログ記録を保存:	■ Log recording saved:
+保存に失敗:	Save failed:
+開けませんでした:	Could not open:
+ログファイルが見つかりません:	Log file not found:
+● 記録中	● Recording
+件 /	items /
+新規	New
+複製	Duplicate
+繰返し	Repeat
+■ 停止する	■ Stop
+▶ 実行	▶ Run
+▶ 再開する	▶ Resume
+⏸ 一時停止	⏸ Pause
+■ 全マクロ停止	■ Stop All Macros
+↑ 上へ	↑ Up
+↓ 下へ	↓ Down
+全削除	Delete All
+並行 (待たずに次へ)	Parallel (go to next without waiting)
+追加	Add
+挿入	Insert
+ステップの追加・編集	Add / Edit Step
+説明	Help
+対象: 操作 / [P] アバターパラメータ / [C] カスタムプリセット / [Cam] カメラ / マクロ / カテゴリ	Target: action / [P] avatar parameter / [C] custom preset / [Cam] camera / macro / category
+押す: 押しっぱなし (ダッシュ等)。「離す」か マクロ終了まで押したまま	Press: keep pressed (e.g. run). Stays pressed until "Release" or the macro ends
+1回押す / 長押し: ms の間押して離す。連打: 回数 (0=無限) × 間隔 ms	Tap / Hold: press for ms and release. Rapid: count (0 = infinite) × interval ms
+値を送信: パラメータ等に値を送る (離さない)。チャット: 文字を送信 (\\n で改行)	Send Value: send a value to a parameter etc. (not released). Chat: send text (\\n for new line)
+[並行]: 終わるのを待たずに次へ進む。「並行待ち」か周回の最後で終わるのを待つ	[parallel]: go to the next step without waiting. Waits at "Wait Parallel" or the end of each loop
+マクロ実行: 別のマクロを実行 (並行なら待たない)。停止・一時停止・再開も可	Run Macro: run another macro (does not wait if parallel). Stop, pause and resume are also available
+割込み実行: 動いている他のマクロを一時停止 → 対象を実行 → 終わったら再開	Interrupt: pause the other running macros → run the target → resume when done
+カテゴリ操作: 移動などのカテゴリを ON / OFF / 切替 (「対象」チェックの行が動く)	Category: turn a category such as Move ON / OFF / toggle (rows checked as "Target" run)
+同じ入力を複数のマクロ・操作が押しても、全員が離すまで押されたまま	If several macros/actions press the same input, it stays pressed until all of them release it
+繰り返し回数 (0 = 停止するまで無限ループ)	Repeat count (0 = loop until stopped)
+クリックしてキーを押すと、このマクロの開始/停止キーになります (Back/Delete で解除)	Click and press a key to make it this macro's start/stop key (Back/Delete to clear)
+実行中のマクロを一時停止 / 再開 (押しているものは押したまま)	Pause / resume the running macro (pressed inputs stay pressed)
+押す: 押しっぱなし / 離す: 押したものを離す\n1回押す: ms 押して離す / 長押し: ms 押し続けて離す\n	Press: keep pressed / Release: release what was pressed\nTap: press for ms and release / Hold: keep pressing for ms then release\n
+連打: 回数 (0=無限) × 間隔ms / 待機: ms 待つ\nチャット: 文字を送信 / 値を送信: 対象に値を送る (離さない)\n	Rapid: count (0 = infinite) × interval ms / Wait: wait ms\nChat: send text / Send Value: send a value to the target (not released)\n
+全て離す: このマクロで押しているものを全部離す / 並行待ち: [並行] のステップが全部終わるまで待つ\n	Release All: release everything this macro is pressing / Wait Parallel: wait until all [parallel] steps finish\n
+マクロ実行: 別のマクロを実行 (並行なら待たない) / マクロ停止・一時停止・再開: 別のマクロを操作\n	Run Macro: run another macro (does not wait if parallel) / Stop, Pause, Resume Macro: control another macro\n
+割込み実行: 他のマクロを一時停止して対象を実行し、終わったら再開 / カテゴリ操作: ON・OFF・切替	Interrupt: pause other macros, run the target, then resume / Category: ON, OFF, toggle
+軸: -1〜1 / ボタン: 空欄でOK / パラメータ: 型に合わせた値 / [C]: 空欄ならプリセットの値\nチャット: 文字 / カテゴリ操作: ON・OFF・切替	Axis: -1 to 1 / Button: can be empty / Parameter: value matching the type / [C]: preset value if empty\nChat: text / Category: ON, OFF, toggle
+クリック: 編集欄に読込 / Delete: 削除 / Ctrl+↑↓: 移動	Click: load into the editor / Delete: delete / Ctrl+↑↓: move
+選択中のステップの前に挿入	Insert before the selected step
+選択中のステップを編集欄の内容で置き換え	Replace the selected step with the editor contents
+ON: このステップの終了を待たずに次のステップへ進む (複数操作の同時実行)\n1回押す / 長押し / 連打 / 待機 / マクロ実行 / 割込み実行 で使えます	ON: go to the next step without waiting for this one to finish (run several actions at once)\nAvailable for Tap / Hold / Rapid / Wait / Run Macro / Interrupt
+マクロ「	Macro "
+」を削除しますか？	" — delete it?
+▶ マクロ再開:	▶ Macro resumed:
+⏸ マクロ一時停止:	⏸ Macro paused:
+全ステップを削除しますか？	Delete all steps?
+サンプル: 走りながらジャンプ	Sample: jump while running
+マクロ完了！	Macro done!
+同じ名前のマクロがあります	A macro with the same name exists
+＋ マクロ「	＋ Macro "
+」に追加: 値を送信	" — added: Send Value
+■ マクロ停止:	■ Macro stopped:
+▶ マクロ開始:	▶ Macro started:
+▶ 再開	▶ Resume
+回目	run
+(一時停止中)	(paused)
+完了	Done
+回	times
+停止中	Stopped
+ほか	and
+件実行中	running
+」が見つかりません	" not found
+」は呼び出し中のため実行しません (循環呼び出し防止)	" is already in the call chain, not run (prevents circular calls)
+(呼出元:	(called by:
+■ マクロ停止: 「	■ Macro stopped: "
+」は動いていません	" is not running
+⚡ 割込み: 「	⚡ Interrupt: run "
+」を実行	"
+件を一時停止)	paused)
+⚡ 割込み終了:	⚡ Interrupt finished:
+件を再開	resumed
+* 全マクロ (自分以外)	* All macros (except self)
+ON/OFF/切替	ON/OFF/Toggle
+カテゴリ	Category
+切替	Toggle
+対象を一覧から選ぶか、/ から始まる OSC アドレスを入力してください。	Choose a target from the list or enter an OSC address starting with /.
+カスタムプリセットが見つかりません。	Custom preset not found.
+値「	Value "
+に変換できません。	cannot be converted.
+対象のマクロを選んでください。	Choose the target macro.
+」が見つかりません。	" not found.
+自分自身は対象にできません (繰り返しは「繰返し」を使ってください)。	A macro cannot target itself (use "Repeat" to repeat).
+カテゴリを選んでください。	Choose a category.
+値は ON / OFF / 切替 のどれかにしてください。	The value must be ON, OFF or Toggle.
+パラメータがありません (アバターを選ぶか、VRChat から受信してください)	No parameters (choose an avatar or receive from VRChat)
+👤 このアバターに変更	👤 Switch to This Avatar
+開く…	Open…
+パラメータ名で検索	Search parameter name
+読み取り専用を隠す	Hide Read-only
+受信から自動追加	Auto-add from Receive
+追加…	Add…
+全コピー	Copy All
+貼り付けて適用	Paste and Apply
+🔓 固定を全解除	🔓 Unlock All
+アバター	Avatar
+VRChat が作るアバターの OSC 設定ファイルから選択 (アバター変更時は自動で切替)	Choose from the avatar OSC config files created by VRChat (switches automatically on avatar change)
+選んでいるアバターに VRChat 側で着替える (/avatar/change)\n自分のアバター・お気に入り等、着られるアバターのみ	Change into the selected avatar in VRChat (/avatar/change)\nOnly avatars you can wear (your own, favorites, etc.)
+アバター一覧を読み込み直す	Reload the avatar list
+アバターの OSC 設定ファイル (avtr_*.json) を直接開く	Open an avatar OSC config file (avtr_*.json) directly
+VRChat 組み込みの読み取り専用パラメータ (Velocity, Gesture 等) を隠す	Hide VRChat's built-in read-only parameters (Velocity, Gesture, etc.)
+設定ファイルに無いパラメータでも、受信したものは一覧に追加する	Add received parameters to the list even if they are not in the config file
+パラメータを手動で追加	Add a parameter manually
+表示中のパラメータを「名前 [Tab] 型 [Tab] 値」でコピー (状態の保存に)	Copy the shown parameters as "name [Tab] type [Tab] value" (to save a state)
+クリップボードの「名前 [Tab] 型 [Tab] 値」または「名前=値」を読み込んで送信 (状態の復元に)	Read "name [Tab] type [Tab] value" or "name=value" from the clipboard and send it (to restore a state)
+固定しているパラメータを全て解除	Unlock all locked parameters
+スイッチ: クリック / 数値: − + か数字をクリック / スライダー: ドラッグ\nダブルクリック: 値を入力 / 右クリック: 固定・コピーなど	Switch: click / Number: click − + or the number / Slider: drag\nDouble-click: enter a value / Right-click: lock, copy, etc.
+アバター OSC 設定 (avtr_*.json)|avtr_*.json|JSON (*.json)|*.json	Avatar OSC config (avtr_*.json)|avtr_*.json|JSON (*.json)|*.json
+👤 アバター変更:	👤 Avatar changed:
+アバター一覧を読み込み中…	Loading avatar list…
+設定ファイルなし (受信から追加)	No config file (added from receive)
+アバター設定が見つかりません (VRChat で OSC を有効に)	No avatar config found (enable OSC in VRChat)
+パラメータを読み込み中…	Loading parameters…
+読込エラー:	Load error:
+👤 パラメータ読込:	👤 Parameters loaded:
+アバターを選んでください	Choose an avatar
+接続してから実行してください	Connect first
+👤 アバターを変更:	👤 Changing avatar:
+送信できませんでした (出力 OFF の可能性があります)	Could not send (output may be OFF)
+表示	Shown
+/ 全	/ total
+件 (操作可	(operable
+値を編集…	Edit value…
+値を編集して固定…	Edit value and lock…
+名前をコピー	Copy name
+名前・型・値をコピー	Copy name, type and value
+マクロに「値を送信」として追加	Add to macro as "Send Value"
+一覧から外す	Remove from list
+(まだ受信していないので初期値)	(not received yet, initial value)
+値を編集して固定	Edit value and lock
+値を編集	Edit value
+パラメータを追加	Add Parameter
+パラメータ名 (または /avatar/parameters/... のアドレス)	Parameter name (or an /avatar/parameters/... address)
+既に一覧にあります	Already in the list
+📋 パラメータを	📋 Parameters copied:
+件コピー	items
+📋 貼り付けて適用:	📋 Paste and apply:
+件送信	sent
+件スキップ)	skipped)
+件適用	applied
+件スキップ	skipped
+ステーション	Station
+座り	Sitting
+ジャンプ中	Jumping
+空中	In air
+立ち	Standing
+デスクトップ	Desktop
+話し中	Talking
+\n元	orig
+AFK 中\n	AFK
+在席	Not AFK
+状態	State
+身長	Height
+このツールはあくまでもVRChatのOSCを利用してのデバッグ等を行なうために作成されました。\n全て公式のOSCを使用しての機能となっていますので非公式な仕組み等は利用していません。\n何かトラブル等が発生しても自己責任でお願い致します。	This tool was created only for debugging and similar purposes using VRChat's OSC.\nAll features use official OSC only; no unofficial mechanisms are used.\nUse at your own risk; we take no responsibility for any trouble that may occur.
+目の高さ	eye height
+元	orig
+AFK 中	AFK
+機能	feature
+を保存	saved
+📂 マクロを読み込み	📂 Macros loaded
+📂 コンボを読み込み	📂 Combos loaded
+▶ コンボ 同時実行	▶ Combo run together
+▶ コンボ 順次実行	▶ Combo run in order
+機能を ON/OFF するキー (Back/Delete で解除)\n有効化している間だけ登録されます	 feature ON/OFF key (Back/Delete to clear)\nRegistered only while enabled
+繰返し	repeat
+回 実行しました	times run
+呼出元	called by
+未対応の型	Unsupported type
+元の値	Original value
+(未受信)	(not received)
+サンプル: 走りながらジャンプ	Sample: jump while running
+ON: 	ON: 
+OFF: 	OFF: 
+AFKしていない	Not AFK
